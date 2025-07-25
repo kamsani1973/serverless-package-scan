@@ -52,16 +52,17 @@ jobs:
   ########################################
 
   ########################################
-  # job name: snyk-checks
-  # Enable:
-  # - snyk code test
-  # - snyk test
-  # - snyk iac test
-  # - snyk container test <image-name>
-  # Also, enable:
-  # outputs:
-  #   status: ${{ job.status }}
-  # for use in the summary
+  jobs:
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          command: monitor
   ########################################
 
   #################################################
